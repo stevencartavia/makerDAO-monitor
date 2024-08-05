@@ -1,0 +1,26 @@
+org: stevencartavia
+app: maker-sequencer-monitor
+
+service: makerDAO-monitor
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: us-west-2
+  environment:
+    PROVIDER_URL: 
+    DISCORD_WEBHOOK_URL: 
+
+functions:
+  monitorJobs:
+    handler: src/handler.monitorJobs
+    events:
+      - schedule: rate(5 minutes)
+
+plugins:
+  - serverless-plugin-typescript
+
+custom:
+  webpack:
+    webpackConfig: './webpack.config.js'
+    includeModules: true
